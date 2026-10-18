@@ -4,6 +4,23 @@ Simulation scientifique interactive en français, développée avec **React, Typ
 
 Interface claire et sombre avec typographie système, deux disques synchronisés, commandes au clavier, ralenti, expériences guidées et graphique scientifique. Aucun logo ni police propriétaire n’est distribué.
 
+## Site public avec GitHub Pages
+
+Les fichiers de production du site sont publiés séparément dans la branche **`gh-pages`**. Le code source reste dans **`application-stroboscope`**. Les URL relatives des fichiers permettent de servir l’application sous `/simulation-stroboscope/`.
+
+Activation initiale par le propriétaire du dépôt :
+
+1. Ouvrir <https://github.com/amouata/simulation-stroboscope/settings/pages>.
+2. Dans **Build and deployment → Source**, choisir **Deploy from a branch**.
+3. Choisir **gh-pages**, puis **/ (root)**, et cliquer sur **Save**.
+4. Attendre la fin du déploiement GitHub Pages et utiliser l’URL affichée par GitHub. L’adresse habituelle, sans domaine personnalisé, est `https://amouata.github.io/simulation-stroboscope/`.
+
+Une fois activé, le site est hébergé par GitHub : il reste accessible lorsque votre PC est éteint. Les visiteurs n’ont besoin que d’un navigateur, sans Node.js ni téléchargement. Le site ne collecte pas de compte utilisateur ; le thème est mémorisé localement sur l’appareil.
+
+Cette activation dépend des permissions et de l’offre GitHub du dépôt. Rendre le site public ne demande pas de publier des clés ni des identifiants. Si GitHub exige de changer la visibilité du dépôt, examiner ce choix séparément avant de modifier la visibilité du code.
+
+Une nouvelle version du code doit être compilée puis republiée dans `gh-pages` pour mettre à jour le site. La branche de publication contient seulement `dist/` compilé et un fichier `.nojekyll` ; il ne faut pas y copier `node_modules`, des fichiers `.env` ou des identifiants.
+
 ## Ouvrir l’application sur votre ordinateur
 
 ### Windows : un raccourci sur le Bureau
