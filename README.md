@@ -22,13 +22,15 @@ Dans un environnement cloud, le serveur écoute sur toutes les interfaces. Si vo
 
 ## Utiliser le laboratoire
 
-- **T** est la durée d’un tour réel. **Te** est la durée entre deux éclairs. Les réglages sont indépendants, de 0,05 à 10 secondes ; changer une période arrête et réinitialise l’expérience.
+- **T** est la durée d’un tour réel. **Te** est la durée entre deux éclairs. Les réglages sont indépendants, de **0,001 à 10 secondes**, avec un pas de 0,001 s (1 milliseconde) ; changer une période arrête et réinitialise l’expérience. Pour une petite période, saisissez directement sa valeur dans le champ numérique, par exemple `0.01` pour 0,01 s.
 - **Démarrer / Arrêter / Reprendre** pilote l’animation en temps réel. La simulation se met en pause lorsque l’onglet est masqué.
 - **Réinitialiser** revient à l’observation initiale à t = 0 et conserve vos réglages.
 - **Avancer d’un éclair** arrête l’animation et se place exactement au prochain éclair. C’est le meilleur moyen d’étudier les très petites périodes.
 - La vue **Rotation réelle** suit le point en continu. La vue **Mouvement apparent** affiche la dernière position échantillonnée et la conserve jusqu’à l’éclair suivant pour faciliter la lecture.
 - Les **traces** montrent les huit dernières observations et l’arc du dernier déplacement minimal. Le tableau affiche l’angle et le temps de chaque observation. L’observation n = 0 est comprise dans le compteur.
 - Les quatre préréglages permettent de comparer le recul, l’immobilité, le sens direct et le demi-tour ambigu.
+
+Pour explorer une rotation rapide, essayez **T = 0,01 s** et **Te = 0,019 s** : le déplacement apparent minimal reste **−36°**. À ces fréquences, utilisez le mode **Avancer d’un éclair** : un écran ne peut pas montrer chaque rotation ou chaque éclair en temps réel. Les temps des observations sont affichés avec une précision à la milliseconde.
 
 L’application fonctionne sans compte, sans clé API et sans service externe. Les polices sont incluses dans les fichiers de l’application.
 

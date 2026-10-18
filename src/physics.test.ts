@@ -43,8 +43,8 @@ describe("Échantillonnage stroboscopique", () => {
   });
 
   it("conserve les positions observées pour toutes les vitesses aliasées", () => {
-    for (const t of [0.05, 0.3, 1, 2.7, 10]) {
-      for (const te of [0.05, 0.4, 1.1, 1.9, 10]) {
+    for (const t of [0.001, 0.01, 0.05, 0.3, 1, 2.7, 10]) {
+      for (const te of [0.001, 0.019, 0.05, 0.4, 1.1, 1.9, 10]) {
         const result = stroboscopy(t, te);
         expect(Math.abs(result.minimalStep)).toBeLessThanOrEqual(180);
         for (let n = 0; n <= 20; n++) {
@@ -63,6 +63,8 @@ describe("Échantillonnage stroboscopique", () => {
     expect(flashIndexAt(1.9, 1.9)).toBe(1);
     expect(flashIndexAt(0.3, 0.1)).toBe(3);
     expect(flashIndexAt(5.7, 1.9)).toBe(3);
+    expect(flashIndexAt(0.003, 0.001)).toBe(3);
+    expect(flashIndexAt(0.0029, 0.001)).toBe(2);
   });
 
   it("garde huit observations exactes sans accumuler les erreurs ni la mémoire", () => {
@@ -72,7 +74,16 @@ describe("Échantillonnage stroboscopique", () => {
     expect(samples[7]).toEqual({ index: 10000, time: 19000, angle: 0 });
   });
 
-  it.each([0, -1, NaN, Infinity, 0.049, 10.01])(
+  it("permet les millisecondes et conserve le recul de 36° pour T = 0,01 s et Te = 0,019 s", () => {
+    expect(validPeriod(0.001)).toBe(true);
+    expect(stroboscopy(0.001, 0.001).minimalStep).toBe(0);
+    const result = stroboscopy(0.01, 0.019);
+    expect(result.actualStep).toBeCloseTo(684, 10);
+    expect(result.minimalStep).toBeCloseTo(-36, 10);
+    expect(result.apparentFrequency).toBeCloseTo(-100 / 19, 10);
+  });
+
+  it.each([0, -1, NaN, Infinity, 0.0009, 10.01])(
     "rejette une période invalide : %s",
     (value) => {
       expect(validPeriod(value)).toBe(false);

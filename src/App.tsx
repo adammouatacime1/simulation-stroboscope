@@ -9,10 +9,10 @@ import {
   validPeriod,
 } from "./physics";
 
-const number = (value: number, digits = 2) =>
+const number = (value: number, digits = 3) =>
   value.toLocaleString("fr-FR", { maximumFractionDigits: digits });
-const signed = (value: number) =>
-  `${value > 0 ? "+" : value < 0 ? "−" : ""}${number(Math.abs(value))}`;
+const signed = (value: number, digits = 3) =>
+  `${value > 0 ? "+" : value < 0 ? "−" : ""}${number(Math.abs(value), digits)}`;
 type IconName = "play" | "pause" | "reset" | "step" | "bolt" | "arrow";
 function Icon({ name }: { name: IconName }) {
   const paths: Record<IconName, string> = {
@@ -76,7 +76,7 @@ function PeriodControl({
           type="number"
           min={MIN_PERIOD}
           max={MAX_PERIOD}
-          step="0.01"
+          step="0.001"
           value={draft}
           aria-invalid={invalid}
           aria-describedby={`help-${symbol}`}
@@ -99,19 +99,19 @@ function PeriodControl({
         aria-label={`Régler ${label.toLowerCase()}`}
         min={MIN_PERIOD}
         max={MAX_PERIOD}
-        step="0.01"
+        step="0.001"
         value={value}
         onChange={(event) => onChange(Number(event.target.value))}
       />
       <div className="range-limits">
-        <span>0,05 s</span>
+        <span>{number(MIN_PERIOD)} s</span>
         <span>10 s</span>
       </div>
       <p
         id={`help-${symbol}`}
         className={invalid ? "input-error" : "field-help"}
       >
-        {invalid ? "Saisissez une période entre 0,05 et 10 s." : description}
+        {invalid ? "Saisissez une période entre 0,001 et 10 s." : description}
       </p>
     </div>
   );
@@ -585,14 +585,14 @@ export default function App() {
               <div className="time-readout">
                 <span>TEMPS ÉCOULÉ</span>
                 <strong data-testid="elapsed">
-                  {number(time, 2)} <small>s</small>
+                  {number(time, 3)} <small>s</small>
                 </strong>
               </div>
               <div className="flash-progress">
                 <div>
                   <span>Prochain éclair</span>
                   <strong>
-                    {number(Math.max(0, flashPeriod - (time - latest.time)), 2)}{" "}
+                    {number(Math.max(0, flashPeriod - (time - latest.time)), 3)}{" "}
                     s
                   </strong>
                 </div>
@@ -663,8 +663,8 @@ export default function App() {
               <span>Fréquence apparente minimale</span>
               <strong>
                 {physics.ambiguous
-                  ? `±${number(Math.abs(physics.apparentFrequency), 3)}`
-                  : signed(physics.apparentFrequency)}{" "}
+                  ? `±${number(Math.abs(physics.apparentFrequency), 6)}`
+                  : signed(physics.apparentFrequency, 6)}{" "}
                 Hz
               </strong>
             </div>

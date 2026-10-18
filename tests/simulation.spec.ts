@@ -107,3 +107,31 @@ test("l’interface reste utilisable sur téléphone, sans débordement de la pa
     ),
   ).toBe(true);
 });
+
+test("les petites périodes restent lisibles et exactes jusqu’à une milliseconde", async ({ page }) => {
+  await page.goto("/");
+  const rotation = page.getByRole("spinbutton", { name: "Période de rotation" });
+  const flashes = page.getByRole("spinbutton", { name: "Période des éclairs" });
+  await rotation.fill("0.01");
+  await flashes.fill("0.019");
+  await expect(rotation).toHaveAttribute("aria-invalid", "false");
+  await expect(flashes).toHaveAttribute("aria-invalid", "false");
+  await expect(page.getByTestId("minimal-step")).toHaveText("−36°");
+  await page.getByRole("button", { name: "Avancer d’un éclair" }).click();
+  await expect(page.getByTestId("elapsed")).toHaveText("0,019 s");
+  await expect(page.getByTestId("apparent-angle")).toHaveText("324°");
+  await expect(page.getByTestId("sample-timeline")).toContainText("0,019 s");
+
+  // Home selects the lower bound through the actual slider control.
+  await page.getByRole("slider", { name: "Régler période des éclairs" }).focus();
+  await page.keyboard.press("Home");
+  await expect(flashes).toHaveValue("0.001");
+  await expect(rotation).toHaveValue("0.01");
+  await expect(page.getByTestId("elapsed")).toHaveText("0 s");
+  await page.getByRole("button", { name: "Avancer d’un éclair" }).click();
+  await expect(page.getByTestId("elapsed")).toHaveText("0,001 s");
+  await expect(page.getByTestId("apparent-angle")).toHaveText("36°");
+  await flashes.fill("0.0005");
+  await expect(flashes).toHaveAttribute("aria-invalid", "true");
+  await expect(page.getByTestId("minimal-step")).toHaveText("+36°");
+});

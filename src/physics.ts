@@ -1,5 +1,5 @@
 /** Positive angles are counterclockwise. Periods are in seconds. */
-export const MIN_PERIOD = 0.05;
+export const MIN_PERIOD = 0.001;
 export const MAX_PERIOD = 10;
 
 export function validPeriod(value: number): boolean {
@@ -14,7 +14,7 @@ export function wrapDegrees(angle: number): number {
 export function stroboscopy(rotationPeriod: number, flashPeriod: number) {
   if (!validPeriod(rotationPeriod) || !validPeriod(flashPeriod)) {
     throw new RangeError(
-      "Les périodes doivent être comprises entre 0,05 et 10 secondes.",
+      "Les périodes doivent être comprises entre 0,001 et 10 secondes.",
     );
   }
   const actualStep = (360 * flashPeriod) / rotationPeriod;
