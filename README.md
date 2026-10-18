@@ -1,6 +1,8 @@
-# Stroboscope · Laboratoire du mouvement
+# Stroboscope Lab · Explorez le mouvement
 
 Simulation scientifique interactive en français, développée avec **React, TypeScript et Vite**. Un disque tourne à vitesse constante dans le sens antihoraire ; un stroboscope observe un point rouge sur sa périphérie.
+
+Interface claire et sombre avec typographie système, deux disques synchronisés, commandes au clavier, ralenti, expériences guidées et graphique scientifique. Aucun logo ni police propriétaire n’est distribué.
 
 ## Ouvrir l’application sur votre ordinateur
 
@@ -38,16 +40,26 @@ Dans un environnement cloud, le serveur écoute sur toutes les interfaces. Si vo
 ## Utiliser le laboratoire
 
 - **T** est la durée d’un tour réel. **Te** est la durée entre deux éclairs. Les réglages sont indépendants, de **0,001 à 10 secondes**, avec un pas de 0,001 s (1 milliseconde) ; changer une période arrête et réinitialise l’expérience. Pour une petite période, saisissez directement sa valeur dans le champ numérique, par exemple `0.01` pour 0,01 s.
-- **Démarrer / Arrêter / Reprendre** pilote l’animation en temps réel. La simulation se met en pause lorsque l’onglet est masqué.
+- **Démarrer / Pause / Reprendre** pilote l’animation. La simulation se met en pause lorsque l’onglet est masqué. Le réglage **Vitesse de simulation**, de ×0,1 à ×2, fait varier le temps simulé sans modifier les périodes ni les mesures physiques.
 - **Réinitialiser** revient à l’observation initiale à t = 0 et conserve vos réglages.
-- **Avancer d’un éclair** arrête l’animation et se place exactement au prochain éclair. C’est le meilleur moyen d’étudier les très petites périodes.
-- La vue **Rotation réelle** suit le point en continu. La vue **Mouvement apparent** affiche la dernière position échantillonnée et la conserve jusqu’à l’éclair suivant pour faciliter la lecture.
-- Les **traces** montrent les huit dernières observations et l’arc du dernier déplacement minimal. Le tableau affiche l’angle et le temps de chaque observation. L’observation n = 0 est comprise dans le compteur.
-- Les quatre préréglages permettent de comparer le recul, l’immobilité, le sens direct et le demi-tour ambigu.
+- **Éclair suivant** arrête l’animation et se place exactement au prochain éclair. C’est le meilleur moyen d’étudier les très petites périodes.
+- La vue **Mouvement réel** suit le point en continu. La vue **Observation stroboscopique** montre les positions échantillonnées. **Rémanence** conserve la dernière position entre les éclairs ; si elle est désactivée, le point s’affiche au bref indicateur d’éclair. En pause exactement sur un éclair, sa position reste visible pour l’étude.
+- **Positions successives** montre les huit dernières observations et l’arc du dernier déplacement minimal. Le tableau affiche l’angle et le temps de chaque observation. L’observation n = 0 est comprise dans le compteur.
+- Les expériences rapides règlent **T = 0,05 s** avec **Tₑ = 0,095 s** (inverse, −36°), **0,055 s** (direct, +36°), **0,1 s** (stationnaire) ou **0,075 s** (ambigu, ±180°). **Configuration libre** permet de modifier les valeurs sans les remplacer.
+- Les curseurs utilisent une **échelle logarithmique** pour rendre les petites périodes accessibles. Les flèches du clavier ajustent la période de 0,001 s, Page haut/bas de 0,01 s, et Début/Fin sélectionnent les limites.
+- Le bouton soleil/lune change le **thème**, mémorisé sur cet appareil. Au premier lancement, le thème suit le système. **Aide** explique les conventions scientifiques ; Échap ferme cette fenêtre. Le bouton de remise à zéro de la barre supérieure restaure l’expérience initiale (T = 1 s, Tₑ = 1,9 s, vitesse ×1 et aides activées), en conservant le thème.
 
-Pour explorer une rotation rapide, essayez **T = 0,01 s** et **Te = 0,019 s** : le déplacement apparent minimal reste **−36°**. À ces fréquences, utilisez le mode **Avancer d’un éclair** : un écran ne peut pas montrer chaque rotation ou chaque éclair en temps réel. Les temps des observations sont affichés avec une précision à la milliseconde.
+### Lire le graphique
 
-L’application fonctionne sans compte, sans clé API et sans service externe. Les polices sont incluses dans les fichiers de l’application.
+**Analyse temporelle** affiche l’angle modulo 360° en fonction du temps simulé. La courbe réelle théorique est coupée à chaque tour : aucune ligne ne relie artificiellement 360° à 0°. Elle peut s’étendre au-delà du temps courant car le modèle à vitesse constante est connu ; seuls les éclairs déjà atteints ont des points observés.
+
+Les traits verticaux repèrent les éclairs affichés. Le pointillé orange montre seulement le trajet minimal **entre les deux dernières observations** ; il est facultatif et ne reconstitue pas le mouvement réel. À ±180°, aucun trajet apparent unique n’est dessiné. Passez la souris sur un point, touchez-le ou utilisez Tab pour lire son instant et son angle.
+
+La fenêtre peut couvrir **6 intervalles d’éclair** ou **2 tours réels**. Au-delà de 128 passages de tour, la courbe réelle est masquée avec une explication plutôt que remplacée par une courbe fausse ; le zoom sur deux tours la rend lisible. Si une fenêtre contient plus de 60 éclairs, certains marqueurs sont masqués avec une indication explicite ; les calculs et le compteur conservent tous les éclairs.
+
+Pour explorer une rotation rapide, essayez **T = 0,01 s** et **Te = 0,019 s** : le déplacement apparent minimal reste **−36°**. À ces fréquences, utilisez le mode **Éclair suivant** : un écran ne peut pas montrer chaque rotation ou chaque éclair en temps réel. Les temps des observations sont affichés avec une précision à la milliseconde.
+
+L’application fonctionne sans compte, sans clé API et sans service externe. Elle utilise les polices du système. Les effets de transparence ont un style de remplacement ; les préférences de réduction des animations, de réduction de transparence et de contraste élevé sont prises en compte. Les noms et valeurs restent visibles indépendamment des couleurs.
 
 ## Physique et limites d’interprétation
 
@@ -94,7 +106,7 @@ Si Chromium est déjà installé, vous pouvez le réutiliser, par exemple dans c
 CHROMIUM_PATH=/usr/bin/chromium npm run test:browser
 ```
 
-Les tests navigateur vérifient les réglages, le démarrage, la pause, la reprise, le pas à pas, la remise à zéro, les traces et l’affichage sur mobile. GitHub Actions exécute les tests et la compilation à chaque push et pull request.
+Les tests navigateur vérifient les réglages, le démarrage, la pause, la reprise, le pas à pas, les remises à zéro, les traces, la rémanence, le ralenti, les expériences, les thèmes et leur mémorisation, l’aide au clavier, le graphique et l’affichage sur mobile. GitHub Actions exécute les tests et la compilation à chaque push et pull request.
 
 ## Enregistrer sur GitHub
 
@@ -114,6 +126,10 @@ La connexion GitHub de votre ordinateur doit autoriser l’écriture dans le dé
 
 - `src/physics.ts` : calculs indépendants de l’interface.
 - `src/physics.test.ts` : tests scientifiques et numériques.
-- `src/App.tsx` : commandes, animation et disques SVG.
-- `src/styles.css` : interface adaptative pour ordinateur et téléphone.
+- `src/useSimulation.ts` : horloge partagée, vitesse du temps simulé et lecture.
+- `src/chartModel.ts` et son test : segments scientifiques du graphique, avec coupures modulo 360°.
+- `src/components/` : navigation, disques SVG, commandes, mesures, expériences, graphique et historique.
+- `src/useTheme.ts` : préférences de thème et mémorisation locale.
+- `src/App.tsx` : composition et synchronisation des composants.
+- `src/styles.css` : design system et interface adaptative pour ordinateur et téléphone.
 - `tests/simulation.spec.ts` : tests de l’application dans Chromium.
