@@ -4,6 +4,21 @@ Simulation scientifique interactive en français, développée avec **React, Typ
 
 ## Ouvrir l’application sur votre ordinateur
 
+### Windows : un raccourci sur le Bureau
+
+1. Installez **Node.js 24 LTS** si ce n’est pas déjà fait.
+2. Téléchargez le ZIP du projet, faites **Extraire tout**, puis placez le dossier extrait à un emplacement où vous souhaitez le conserver (par exemple Documents). Ouvrez le dossier contenant `package.json`.
+3. Double-cliquez sur **`Creer-raccourci.cmd`**. Un raccourci **Stroboscope** est créé sur votre Bureau. Si Windows masque les extensions, le fichier apparaît simplement sous le nom `Creer-raccourci`.
+4. Double-cliquez sur **Stroboscope** sur votre Bureau. Le serveur démarre et le navigateur s’ouvre automatiquement, dès que l’application est prête. Les composants sont installés automatiquement au premier démarrage si nécessaire ; Internet est requis pour cette première installation.
+
+Aucune commande à taper. Après un redémarrage du PC, double-cliquez à nouveau sur le raccourci. Vous pouvez aussi démarrer directement avec **`Demarrer-Stroboscope.cmd`** dans le dossier de l’application.
+
+La fenêtre du serveur reste réduite dans la barre des tâches quand vous utilisez le raccourci. Laissez-la ouverte pendant l’utilisation ; fermez-la pour arrêter le serveur. Fermer seulement l’onglet du navigateur n’arrête pas le serveur. Le lanceur limite l’accès à votre ordinateur (`127.0.0.1`). Si le port habituel est occupé, Vite choisit un port libre et ouvre l’adresse correspondante.
+
+Gardez le dossier de l’application à son emplacement : le raccourci pointe vers ce dossier. Si vous le déplacez, supprimez l’ancien raccourci et relancez `Creer-raccourci.cmd` depuis le nouvel emplacement. Aucun droit administrateur n’est nécessaire pour créer le raccourci. Vous pouvez aussi le créer manuellement par clic droit sur `Demarrer-Stroboscope.cmd` → **Afficher plus d’options → Envoyer vers → Bureau (créer un raccourci)**.
+
+### Lancement manuel (Windows, macOS ou Linux)
+
 1. Installez **Node.js 24 LTS**, qui inclut npm, depuis <https://nodejs.org>.
 2. Récupérez le dépôt avec Git ou avec **Code → Download ZIP** sur GitHub, puis décompressez-le.
 3. Ouvrez un terminal dans le dossier `simulation-stroboscope`.
