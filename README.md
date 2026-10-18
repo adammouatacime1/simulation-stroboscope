@@ -10,10 +10,10 @@ Les fichiers de production du site sont publiés séparément dans la branche **
 
 Activation initiale par le propriétaire du dépôt :
 
-1. Ouvrir <https://github.com/amouata/simulation-stroboscope/settings/pages>.
+1. Ouvrir <https://github.com/adammouatacime1/simulation-stroboscope/settings/pages>.
 2. Dans **Build and deployment → Source**, choisir **Deploy from a branch**.
 3. Choisir **gh-pages**, puis **/ (root)**, et cliquer sur **Save**.
-4. Attendre la fin du déploiement GitHub Pages et utiliser l’URL affichée par GitHub. L’adresse habituelle, sans domaine personnalisé, est `https://amouata.github.io/simulation-stroboscope/`.
+4. Attendre la fin du déploiement GitHub Pages et utiliser l’URL affichée par GitHub. L’adresse habituelle, sans domaine personnalisé, est `https://adammouatacime1.github.io/simulation-stroboscope/`.
 
 Une fois activé, le site est hébergé par GitHub : il reste accessible lorsque votre PC est éteint. Les visiteurs n’ont besoin que d’un navigateur, sans Node.js ni téléchargement. Le site ne collecte pas de compte utilisateur ; le thème est mémorisé localement sur l’appareil.
 
